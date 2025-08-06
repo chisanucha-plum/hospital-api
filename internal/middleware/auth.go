@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"hospital-api/internal/configs"
+	"hospital-api/internal/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,16 +10,24 @@ import (
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		const prefix = "Bearer "
 		tokenStr := c.GetHeader("Authorization")
+
 		if tokenStr == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
 			c.Abort()
 			return
 		}
 
-		token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-			return []byte(configs.Envs.JWTSecret), nil
-		})
+		if len(tokenStr) <= len(prefix) || tokenStr[:len(prefix)] != prefix {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token format"})
+			c.Abort()
+			return
+		}
+
+		tokenStr = tokenStr[len(prefix):]
+
+		token, err := services.ValidateJWT(tokenStr)
 		if err != nil || !token.Valid {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 			c.Abort()
