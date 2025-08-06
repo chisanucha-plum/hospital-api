@@ -1,6 +1,6 @@
 # AGNOS Hospital Middleware API
 
-## ภาพรวม
+## ภาพรวมของระบบ
 Hospital Middleware API สำหรับการค้นหาและจัดการข้อมูลผู้ป่วยจากระบบโรงพยาบาล (HIS - Hospital Information System)
 
 ## คุณสมบัติ
