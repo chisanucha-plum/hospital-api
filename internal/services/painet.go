@@ -43,6 +43,8 @@ func (s *PatientService) SearchPatientByID(hospitalID int, id string) (*models.U
 			}
 		}
 	}
+
+	// Search in the local database using GORM
 	var patient models.UserPatient
 	result := s.db.Where("hospital_id = ?", hospitalID).
 		Where("national_id = ? OR passport_id = ?", id, id).
