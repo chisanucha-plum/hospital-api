@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"hospital-api/internal/models"
+	"log"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -32,6 +33,7 @@ func (s *StaffService) CreateStaff(staff *models.UserStaff) error {
 
 func (s *StaffService) CreateStaffByRequest(req *models.CreateStaffRequest) (*models.UserStaff, error) {
 	var hospital models.Hospital
+	log.Printf("Looking for hospital: '%s' (length: %d)", req.HospitalName, len(req.HospitalName))
 	if err := s.db.Where("name = ?", req.HospitalName).First(&hospital).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, fmt.Errorf("hospital not found: %s", req.HospitalName)

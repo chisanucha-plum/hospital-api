@@ -9,7 +9,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func GenerateJWT(staffID int, hospitalID int) (string, error) {
+func GenerateJWT(staffID int, hospitalID string) (string, error) {
 	claims := models.JWTClaims{
 		StaffID:    staffID,
 		HospitalID: hospitalID,

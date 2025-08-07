@@ -38,7 +38,7 @@ func (h *PatientHandler) SearchPatient(c *gin.Context) {
 	}
 
 	// Search by ID national_id or passport_id
-	patient, err := h.patientService.SearchPatientByID(hospitalID.(int), id)
+	patient, err := h.patientService.SearchPatientByID(hospitalID.(string), id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.APIResponse{
 			Success: false,
@@ -93,7 +93,7 @@ func (h *PatientHandler) SearchPatients(c *gin.Context) {
 		"email":         req.Email,
 	}
 
-	patients, err := h.patientService.SearchPatients(hospitalID.(int), searchParams)
+	patients, err := h.patientService.SearchPatients(hospitalID.(string), searchParams)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.APIResponse{
 			Success: false,

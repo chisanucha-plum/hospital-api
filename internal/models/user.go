@@ -33,7 +33,7 @@ type UserStaff struct {
 	ID         uint      `json:"id" gorm:"primaryKey"`
 	Username   string    `json:"username" gorm:"unique"`
 	Password   string    `json:"-"`
-	HospitalID int       `json:"hospital_id"`
+	HospitalID string    `json:"hospital_id"`
 	Hospital   Hospital  `json:"-" gorm:"foreignKey:HospitalID"`
 	CreatedAt  time.Time `json:"-"`
 	UpdatedAt  time.Time `json:"-"`

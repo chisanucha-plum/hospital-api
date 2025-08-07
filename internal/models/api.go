@@ -42,7 +42,7 @@ type APIResponse struct {
 }
 
 type JWTClaims struct {
-	StaffID    int `json:"staff_id"`
-	HospitalID int `json:"hospital_id"`
+	StaffID    int    `json:"staff_id"`
+	HospitalID string `json:"hospital_id"`
 	jwt.RegisteredClaims
 }

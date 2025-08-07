@@ -68,9 +68,9 @@ func seedHospitals(db *gorm.DB) error {
 	log.Println("Seeding hospitals...")
 
 	hospitals := []models.Hospital{
-		{ID: 1, Name: "โรงพยาบาลศิริราช"},
-		{ID: 2, Name: "โรงพยาบาลจุฬาลงกรณ์"},
-		{ID: 3, Name: "โรงพยาบาลรามาธิบดี"},
+		{ID: "H001", Name: "โรงพยาบาลศิริราช"},
+		{ID: "H002", Name: "โรงพยาบาลจุฬาลงกรณ์"},
+		{ID: "H003", Name: "โรงพยาบาลรามาธิบดี"},
 	}
 
 	for _, hospital := range hospitals {
@@ -78,7 +78,7 @@ func seedHospitals(db *gorm.DB) error {
 			log.Printf(" Error creating hospital %s: %v", hospital.Name, err)
 			return err
 		}
-		log.Printf("Created hospital: %s (ID: %d)", hospital.Name, hospital.ID)
+		log.Printf("Created hospital: %s (ID: %s)", hospital.Name, hospital.ID)
 	}
 
 	return nil
@@ -93,9 +93,9 @@ func seedStaff(db *gorm.DB) error {
 	}
 
 	staff := []models.UserStaff{
-		{ID: 1, Username: "admin1", Password: string(hashedPassword), HospitalID: 1},
-		{ID: 2, Username: "admin2", Password: string(hashedPassword), HospitalID: 2},
-		{ID: 3, Username: "admin3", Password: string(hashedPassword), HospitalID: 3},
+		{Username: "admin1", Password: string(hashedPassword), HospitalID: "H001"},
+		{Username: "admin2", Password: string(hashedPassword), HospitalID: "H002"},
+		{Username: "admin3", Password: string(hashedPassword), HospitalID: "H003"},
 	}
 
 	for _, s := range staff {
@@ -103,7 +103,7 @@ func seedStaff(db *gorm.DB) error {
 			log.Printf("Error creating staff %s: %v", s.Username, err)
 			return err
 		}
-		log.Printf("Created staff: %s (Hospital ID: %d)", s.Username, s.HospitalID)
+		log.Printf("Created staff: %s (Hospital ID: %s)", s.Username, s.HospitalID)
 	}
 
 	return nil
@@ -126,7 +126,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Somchai", LastNameEN: "Jaidee",
 			DateOfBirth: birthDate1990, PassportID: "P001",
 			PhoneNumber: "081-234-5678", Email: "somchai@test.com",
-			Gender: "M", HospitalID: "1",
+			Gender: "M", HospitalID: "H001",
 		},
 		{
 			NationalID: "2345678901234", PatientHN: "HN002",
@@ -134,7 +134,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Somying", LastNameEN: "Suaynam",
 			DateOfBirth: birthDate1985, PassportID: "P002",
 			PhoneNumber: "082-345-6789", Email: "somying@test.com",
-			Gender: "F", HospitalID: "2",
+			Gender: "F", HospitalID: "H002",
 		},
 		{
 			NationalID: "3456789012345", PatientHN: "HN003",
@@ -142,7 +142,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Wichai", LastNameEN: "Kengmak",
 			DateOfBirth: birthDate1992, PassportID: "P003",
 			PhoneNumber: "083-456-7890", Email: "wichai@test.com",
-			Gender: "M", HospitalID: "3",
+			Gender: "M", HospitalID: "H003",
 		},
 		{
 			NationalID: "4567890123456", PatientHN: "HN004",
@@ -150,7 +150,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Wantana", LastNameEN: "Rakdee",
 			DateOfBirth: birthDate1985, PassportID: "P004",
 			PhoneNumber: "084-567-8901", Email: "wantana@test.com",
-			Gender: "F", HospitalID: "1",
+			Gender: "F", HospitalID: "H001",
 		},
 		{
 			NationalID: "5678901234567", PatientHN: "HN005",
@@ -158,7 +158,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Prapot", LastNameEN: "Somprasong",
 			DateOfBirth: birthDate1992, PassportID: "P005",
 			PhoneNumber: "085-678-9012", Email: "prapot@test.com",
-			Gender: "M", HospitalID: "2",
+			Gender: "M", HospitalID: "H002",
 		},
 		{
 			NationalID: "6789012345678", PatientHN: "HN006",
@@ -166,7 +166,7 @@ func seedPatients(db *gorm.DB) error {
 			FirstNameEN: "Supaporn", LastNameEN: "Riandee",
 			DateOfBirth: birthDate1990, PassportID: "P006",
 			PhoneNumber: "086-789-0123", Email: "supaporn@test.com",
-			Gender: "F", HospitalID: "3",
+			Gender: "F", HospitalID: "H003",
 		},
 	}
 
@@ -199,7 +199,7 @@ func GetMockDataSummary(db *gorm.DB) {
 		var hospitals []models.Hospital
 		db.Find(&hospitals)
 		for _, h := range hospitals {
-			log.Printf("  - ID: %d, Name: %s", h.ID, h.Name)
+			log.Printf("  - ID: %s, Name: %s", h.ID, h.Name)
 		}
 	}
 

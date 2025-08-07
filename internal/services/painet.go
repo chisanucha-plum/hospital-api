@@ -16,7 +16,7 @@ func NewPatientService(db *gorm.DB) *PatientService {
 	return &PatientService{db: db}
 }
 
-func (s *PatientService) SearchPatientByID(hospitalID int, id string) (*models.UserPatient, error) {
+func (s *PatientService) SearchPatientByID(hospitalID string, id string) (*models.UserPatient, error) {
 
 	var patient models.UserPatient
 	result := s.db.Where("hospital_id = ?", hospitalID).
@@ -33,7 +33,7 @@ func (s *PatientService) SearchPatientByID(hospitalID int, id string) (*models.U
 	return &patient, nil
 }
 
-func (s *PatientService) SearchPatients(hospitalID int, params map[string]string) ([]models.UserPatient, error) {
+func (s *PatientService) SearchPatients(hospitalID string, params map[string]string) ([]models.UserPatient, error) {
 
 	query := s.db.Where("hospital_id = ?", hospitalID)
 	for key, value := range params {
