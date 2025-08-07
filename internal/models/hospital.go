@@ -1,10 +1,12 @@
 package models
 
-type Hospital struct {
-	ID   int    `gorm:"primaryKey;column:id" json:"id"`
-	Name string `gorm:"column:name" json:"name"`
-}
+import "time"
 
-func (Hospital) TableName() string {
-	return "hospitals"
+type Hospital struct {
+	ID        int           `json:"id" gorm:"primaryKey" `
+	Name      string        `json:"name" gorm:"unique" `
+	Staff     []UserStaff   `gorm:"foreignKey:HospitalID" json:"-"`
+	Patients  []UserPatient `gorm:"foreignKey:HospitalID" json:"-"`
+	CreatedAt time.Time     `json:"-"`
+	UpdatedAt time.Time     `json:"-"`
 }

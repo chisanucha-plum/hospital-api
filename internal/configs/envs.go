@@ -41,9 +41,9 @@ func initConfig() Config {
 		JWTSecret:              getEnv("JWT_SECRET", "not-so-secret-now-is-it?"),
 		JWTExpirationInSeconds: getEnvAsInt("JWT_EXPIRATION_IN_SECONDS", 3600*24*7),
 		// HospitalAApiUrl:        getEnv("HOSPITAL_A_API_URL", "https://hospital-a.api.co.th"),
-		HospitalAApiUrl:     getEnv("HOSPITAL_A_API_URL", "http://localhost:8001"),
-		HospitalAApiTimeout: getEnvAsInt("HOSPITAL_A_API_TIMEOUT", 10),
-		HospitalID:          int(getEnvAsInt("HOSPITAL_ID", 1)),
+		// HospitalAApiUrl:     getEnv("HOSPITAL_A_API_URL", "http://localhost:8001"),
+		// HospitalAApiTimeout: getEnvAsInt("HOSPITAL_A_API_TIMEOUT", 10),
+		HospitalID: int(getEnvAsInt("HOSPITAL_ID", 1)),
 	}
 }
 

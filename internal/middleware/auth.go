@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 )
 
 func AuthMiddleware() gin.HandlerFunc {
@@ -27,16 +26,16 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		tokenStr = tokenStr[len(prefix):]
 
-		token, err := services.ValidateJWT(tokenStr)
-		if err != nil || !token.Valid {
+		claims, err := services.ValidateJWT(tokenStr)
+		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 			c.Abort()
 			return
 		}
 
-		claims := token.Claims.(jwt.MapClaims)
-		c.Set("staff_id", int(claims["staff_id"].(float64)))
-		c.Set("hospital_id", int(claims["hospital_id"].(float64)))
+		c.Set("staff_id", claims.StaffID)
+		c.Set("hospital_id", claims.HospitalID)
+		c.Set("claims", claims)
 		c.Next()
 	}
 }

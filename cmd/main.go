@@ -3,13 +3,14 @@ package main
 import (
 	"hospital-api/database"
 	"hospital-api/internal/configs"
-	"hospital-api/internal/handlers"
+	"hospital-api/internal/router"
 	"log"
-	// "github.com/gin-gonic/gin"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	db, err := database.NewDB()
 	if err != nil {
@@ -20,6 +21,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	r := handlers.SetupRouter(db)
+	r := router.SetupRouter(db)
 	r.Run(":" + configs.Envs.Port)
 }

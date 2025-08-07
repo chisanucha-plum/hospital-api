@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"hospital-api/internal/configs"
 	"hospital-api/internal/models"
+	"log"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,10 +28,21 @@ func NewDB() (*gorm.DB, error) {
 }
 
 func InitSchema(db *gorm.DB) error {
-	// GORM's AutoMigrate will create or update tables based on the struct definitions.
+	log.Println("Initializing database schema...")
+
+	// GORM's AutoMigrate
 	err := db.AutoMigrate(&models.Hospital{}, &models.UserStaff{}, &models.UserPatient{})
 	if err != nil {
 		return fmt.Errorf("failed to initialize schema: %v", err)
 	}
+
+	log.Println("Database schema initialized successfully")
+
+	if err := SeedMockData(db); err != nil {
+		log.Printf("Warning: Failed to seed mock data: %v", err)
+	}
+
+	GetMockDataSummary(db)
+
 	return nil
 }
