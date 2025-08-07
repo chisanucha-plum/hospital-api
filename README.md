@@ -1,20 +1,6 @@
 # Hospital API Management System
 
-## ภาพรวมของระบบ
-Hospital API สำหรับการจัดการข้อมูลโรงพยาบาล เจ้าหน้าที่ และผู้ป่วย พร้อมระบบ Authentication และ Authorization ที่ครบถ้วน พัฒนาด้วย Go และ PostgreSQL ใช้ architecture แบบ Clean Code และ Type-Safe Models
-
-## คุณสมบัติหลัก
-- 🏥 **Hospital Management** - จัดการข้อมูลโรงพยาบาลพร้อม relationship
-- 👨‍⚕️ **Staff Authentication** - ระบบสมัครสมาชิกและเข้าสู่ระบบด้วย JWT
-- 🔍 **Advanced Patient Search** - ค้นหาผู้ป่วยแบบ multi-field ด้วย query parameters
-- 🛡️ **Type-Safe JWT Claims** - JWT authentication ด้วย structured claims
-- 🌍 **Multilingual Support** - รองรับข้อมูลภาษาไทยและภาษาอังกฤษ
-- 📊 **GORM ORM** - Auto migration และ type-safe database operations
-- 🔗 **Foreign Key Relationships** - Hospital ↔ Staff ↔ Patient
-- 🐳 **Docker Ready** - Docker Compose สำหรับ development และ production
-- 📝 **Structured API Models** - Type-safe request/response models
-
-## เทคโนโลยีที่ใช้
+## Stack
 - **Go 1.22+** - Core programming language
 - **Gin Framework** - HTTP router พร้อม middleware และ route grouping
 - **GORM** - ORM สำหรับ database operations

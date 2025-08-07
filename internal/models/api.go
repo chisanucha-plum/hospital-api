@@ -41,7 +41,6 @@ type APIResponse struct {
 	Error   string      `json:"error,omitempty"`
 }
 
-// JWT Claims Model - Type-safe JWT claims structure
 type JWTClaims struct {
 	StaffID    int `json:"staff_id"`
 	HospitalID int `json:"hospital_id"`
