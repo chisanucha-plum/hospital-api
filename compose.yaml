@@ -1,0 +1,43 @@
+services:
+  hospital-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8002"
+    volumes:
+      - .:/app 
+    environment:
+      - DB_HOST=postgres_server
+      - DB_PORT=5432
+      - DB_USER=myuser
+      - DB_PASSWORD=1234
+      - DB_NAME=mydbs
+      - REQUEST_ORIGIN=http://localhost
+    command: go run cmd/main.go
+    depends_on:
+      - postgres_server
+
+  postgres_server:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=myuser
+      - POSTGRES_DB=mydbs
+    ports:
+      - "5436:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "81:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - hospital-api
+    restart: unless-stopped
+
+volumes:
+  pg-data:
