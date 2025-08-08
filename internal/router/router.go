@@ -15,13 +15,15 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	staffHandler := handlers.NewStaffHandler(db)
 	patientHandler := handlers.NewPatientHandler(db)
 
-	staffRoutes := r.Group("/staff")
+	api := r.Group("/api/v1")
+
+	staffRoutes := api.Group("/staff")
 	{
 		staffRoutes.POST("/create", staffHandler.CreateStaff)
 		staffRoutes.POST("/login", staffHandler.Login)
 	}
 
-	patientRoutes := r.Group("/patient")
+	patientRoutes := api.Group("/patient")
 	patientRoutes.Use(middleware.AuthMiddleware())
 	{
 		patientRoutes.GET("/search/:id", patientHandler.SearchPatient)

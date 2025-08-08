@@ -176,6 +176,40 @@ GET /api/v1/patients/search/1234567890123
 }
 ```
 
+#### ค้นหาผปู้่วยแบบ JSON Body
+```
+GET /patient/search
+Authorization: Bearer {JWT_TOKEN}
+Content-Type: application/json
+{
+ "first_name_th": "สมชาย",
+ "last_name_th": "ใจด"ี
+}
+```
+**Response:**
+```json
+{
+ "success": true,
+ "message": "Patients found",
+ "data": {
+ "count": 1,
+ "patients": [
+ {
+ "national_id": "1234567890123",
+ "patient_hn": "HN0001",
+ "first_name_th": "สมชาย",
+ "last_name_th": "ใจด"ี,
+ "first_name_en": "Somchai",
+ "last_name_en": "Jaidee",
+ "date_of_birth": "1990-01-01T00:00:00+07:00",
+ "gender": "M",
+ "hospital_id": "1"
+ }
+ ]
+ }
+}
+```
+
 #### ค้นหาผู้ป่วยแบบ Multi-field (Query Parameters)
 ```http
 GET /api/v1/patients/search?field=value&field2=value2
